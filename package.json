@@ -1,0 +1,19 @@
+{
+  "name": "360-video",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/three": "^0.156.0",
+    "three": "^0.156.1",
+    "vite": "^4.4.9",
+    "vite-plugin-mkcert": "^1.16.0"
+  }
+}
