@@ -3568,14 +3568,14 @@ void main() {
     return vec2(
         atan(flatCoord.x, flatCoord.z),
         acos(-flatCoord.y / r)
-    );   
+    ) / vec2(2.0 * M_PI, M_PI) + vec2(0.5, 0.0);
   }
 
   void main() {
     vUv = position; 
 
-    float d = texture2D(map, vec2(0.5, 1.0) * worldToSpherical(position, 1.0) / vec2(M_PI, M_PI)).r;
-    float depth = 6.0 - pow(d, 0.2) * 5.0;
+    float d = texture2D(map, vec2(0.5, 1.0) * worldToSpherical(position, 1.0)).r;
+    float depth = 1.0 + pow(1.0 - d, 5.0) * 20.0;
 
     vec4 modelViewPosition = modelViewMatrix * vec4(position * vec3(depth), 1.0);
     gl_Position = projectionMatrix * modelViewPosition;
@@ -3588,10 +3588,10 @@ void main() {
     return vec2(
         atan(flatCoord.x, flatCoord.z),
         acos(-flatCoord.y / r)
-    );   
+    ) / vec2(2.0 * M_PI, M_PI) + vec2(0.5, 0.0);
   }
  
 
   void main() {
-    gl_FragColor = texture2D(map, vec2(0.5, 0.0) + vec2(0.5, 1.0) * worldToSpherical(vUv, 1.0) / vec2(M_PI, M_PI));
-  }`});ao.side=mt;const Ji=new Kt(Wf,ao);Ji.position.y=1.1;Ji.scale.setScalar(.55);Ji.frustumCulled=!1;jr.add(Ji);Jn.setSize(window.innerWidth,window.innerHeight);window.addEventListener("resize",()=>{Jn.setSize(window.innerWidth,window.innerHeight),fi.aspect=window.innerWidth/window.innerHeight,fi.updateProjectionMatrix()});Jn.setAnimationLoop(()=>Jn.render(jr,fi));
+    gl_FragColor = texture2D(map, vec2(0.5, 0.0) + vec2(0.5, 1.0) * worldToSpherical(vUv, 1.0));
+  }`});ao.side=mt;const Ji=new Kt(Wf,ao);Ji.position.y=1.1;Ji.scale.setScalar(2);Ji.frustumCulled=!1;jr.add(Ji);Jn.setSize(window.innerWidth,window.innerHeight);window.addEventListener("resize",()=>{Jn.setSize(window.innerWidth,window.innerHeight),fi.aspect=window.innerWidth/window.innerHeight,fi.updateProjectionMatrix()});Jn.setAnimationLoop(()=>Jn.render(jr,fi));
