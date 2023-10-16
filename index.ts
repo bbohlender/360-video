@@ -64,14 +64,14 @@ const material = new ShaderMaterial({
     return vec2(
         atan(flatCoord.x, flatCoord.z),
         acos(-flatCoord.y / r)
-    );   
+    ) / vec2(2.0 * M_PI, M_PI) + vec2(0.5, 0.0);
   }
 
   void main() {
     vUv = position; 
 
-    float d = texture2D(map, vec2(0.5, 1.0) * worldToSpherical(position, 1.0) / vec2(M_PI, M_PI)).r;
-    float depth = 6.0 - pow(d, 0.2) * 5.0;
+    float d = texture2D(map, vec2(0.5, 1.0) * worldToSpherical(position, 1.0)).r;
+    float depth = 1.0 + pow(1.0 - d, 5.0) * 20.0;
 
     vec4 modelViewPosition = modelViewMatrix * vec4(position * vec3(depth), 1.0);
     gl_Position = projectionMatrix * modelViewPosition;
@@ -85,19 +85,19 @@ const material = new ShaderMaterial({
     return vec2(
         atan(flatCoord.x, flatCoord.z),
         acos(-flatCoord.y / r)
-    );   
+    ) / vec2(2.0 * M_PI, M_PI) + vec2(0.5, 0.0);
   }
  
 
   void main() {
-    gl_FragColor = texture2D(map, vec2(0.5, 0.0) + vec2(0.5, 1.0) * worldToSpherical(vUv, 1.0) / vec2(M_PI, M_PI));
+    gl_FragColor = texture2D(map, vec2(0.5, 0.0) + vec2(0.5, 1.0) * worldToSpherical(vUv, 1.0));
   }`,
 });
 material.side = BackSide;
 
 const mesh = new Mesh(geometry, material);
 mesh.position.y = 1.1;
-mesh.scale.setScalar(0.55);
+mesh.scale.setScalar(2);
 mesh.frustumCulled = false;
 scene.add(mesh);
 
